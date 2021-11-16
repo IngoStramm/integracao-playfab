@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,4BAA6B,CACzB,OAAO,CAAE,IAAI",
+"sources": ["../sass/integracao-playfab.scss"],
+"names": [],
+"file": "integracao-playfab.css"
+}
