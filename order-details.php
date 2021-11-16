@@ -249,6 +249,10 @@ function ipf_form_add_currency($order)
         return;
     }
 
+    $ipf_order_status = $order->get_status();
+    if ($ipf_order_status !== 'processing')
+        return;
+
     $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
     $curr_url = urlencode($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     foreach ($order->get_items('line_item') as $item) {
@@ -256,7 +260,7 @@ function ipf_form_add_currency($order)
         $ipf_product_id = $item->get_product()->get_id();
         $ipf_product_virtual_currency_name = get_post_meta($ipf_product_id, 'ipf_product_virtual_currency_name', true);
         $ipf_product_virtual_currency_qty = get_post_meta($ipf_product_id, 'ipf_product_virtual_currency_qty', true);
-        $amount = $ipf_product_qty * $ipf_product_virtual_currency_qty;
+        $amount = (int)$ipf_product_virtual_currency_qty > 1 ? $ipf_product_qty * (int)$ipf_product_virtual_currency_qty : $ipf_product_qty;
         $amount = $amount > 1 ? $amount : 1;
         // ipf_debug(current_time('d-m-Y H:i:s'));
         // ipf_debug($ipf_product_virtual_currency_name);
