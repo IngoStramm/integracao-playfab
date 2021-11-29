@@ -4,6 +4,8 @@ add_filter('authenticate', 'ipf_playfab_auth', 10, 3);
 
 function ipf_playfab_auth($user, $username, $password)
 {
+    global $ipf_playfab_api;
+
     // Make sure a username and password are present for us to work with
     if ($username == '' || $password == '')
         return;
@@ -22,6 +24,9 @@ function ipf_playfab_auth($user, $username, $password)
         }
     }
 
+    // Daqui
+    /*
+    
     // $authentication_url = get_site_url() . "/auth_serv.php?user=$username&pass=$password";
     $ipf_title_id = ipf_get_option('ipf_title_id');
 
@@ -51,7 +56,16 @@ function ipf_playfab_auth($user, $username, $password)
 
         $user = new WP_Error('denied', $error_msg);
     } else {
-        // External user exists, try to load the user info from the WordPress user table
+
+    */
+    // Até aqui
+
+    $ipf_authenticate_user = $ipf_playfab_api->login_with_email($username, $password);
+
+    if (!$ipf_authenticate_user instanceof Ipf_Playfab_User) {
+        $user = new WP_Error('denied', $ipf_authenticate_user);
+    } else {
+
         $userobj = new WP_User();
         $user = $userobj->get_data_by('email', $username); // Does not return a WP_User object :(
         $user = new WP_User($user->ID); // Attempt to load up the user with that ID
@@ -74,14 +88,35 @@ function ipf_playfab_auth($user, $username, $password)
             // Load the new user info
             $user = new WP_User($new_user_id);
         }
-        $playfabId = $ext_auth['data']['PlayFabId'];
-        if ($playfabId)
-            update_user_meta($user->ID, 'ipf_playfabid', $ext_auth['data']['PlayFabId']);
+
+        update_user_meta($user->ID, 'ipf_playfabid', $ipf_authenticate_user->get_id());
+        update_user_meta($user->ID, 'ipf_sessionticket', $ipf_authenticate_user->get_session_ticket());
     }
+
+    // Daqui
+
+    /*
+    $playfabId = $ext_auth['data']['PlayFabId'];
+    $SessionTicket = $ext_auth['data']['SessionTicket'];
+    if ($playfabId)
+        update_user_meta($user->ID, 'ipf_playfabid', $playfabId);
+    if ($SessionTicket)
+        // $_SESSION['ipf_sessionticket'] = $SessionTicket;
+        update_user_meta($user->ID, 'ipf_sessionticket', $SessionTicket);
+    */
+
+    // Até aqui
 
     // Comment this line if you wish to fall back on WordPress authentication
     // Useful for times when the external service is offline
     remove_action('authenticate', 'wp_authenticate_username_password', 20);
 
     return $user;
+}
+
+add_action('wp_logout', 'ipf_delete_sessionticket', 10, 1);
+
+function ipf_delete_sessionticket($user_id)
+{
+    delete_user_meta($user_id, 'ipf_sessionticket');
 }

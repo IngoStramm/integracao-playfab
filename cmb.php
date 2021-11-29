@@ -7,13 +7,13 @@ function ipf_register_product_metabox()
 {
     $cmb = new_cmb2_box(array(
         'id'            => 'ipf_product_metabox',
-        'title'         => esc_html__('Opções Playfab', 'cmb2'),
+        'title'         => esc_html__('Opções Playfab', 'ipf'),
         'object_types'  => array('product'), // Post type
         'context'    => 'side',
     ));
 
     $cmb->add_field(array(
-        'name'       => esc_html__('Moeda Virtual', 'cmb2'),
+        'name'       => esc_html__('Moeda Virtual', 'ipf'),
         'id'         => 'ipf_product_virtual_currency_name',
         'type'       => 'select',
         'attributes'    => array(
@@ -23,7 +23,7 @@ function ipf_register_product_metabox()
             $virtual_currencies = ipf_get_option('ipf_virtual_currencies');
             $return_array = [];
 
-            foreach($virtual_currencies as $virtual_currency) {
+            foreach ($virtual_currencies as $virtual_currency) {
                 $return_array[$virtual_currency] = $virtual_currency;
             }
             return $return_array ? $return_array : array('' => __('Nenhuma moeda virtual configurada.', 'ipf'));
@@ -31,7 +31,7 @@ function ipf_register_product_metabox()
     ));
 
     $cmb->add_field(array(
-        'name'       => esc_html__('Quantidade da Moeda Virtual', 'cmb2'),
+        'name'       => esc_html__('Quantidade da Moeda Virtual', 'ipf'),
         'id'         => 'ipf_product_virtual_currency_qty',
         'type'       => 'text',
         'attributes'    => array(
@@ -39,7 +39,6 @@ function ipf_register_product_metabox()
             'required'  => 'required'
         ),
     ));
-
 }
 
 // User profile
@@ -50,15 +49,14 @@ function ipf_register_user_profile_metabox()
 
     $cmb_user = new_cmb2_box(array(
         'id'               => 'ipf_user_edit',
-        'title'            => esc_html__('User Profile Metabox', 'cmb2'), // Doesn't output for user boxes
+        'title'            => esc_html__('Metaboxes do Perfil do Usuário', 'ipf'), // Doesn't output for user boxes
         'object_types'     => array('user'), // Tells CMB2 to use user_meta vs post_meta
         'show_names'       => true,
         'new_user_section' => 'add-new-user', // where form will show on new user page. 'add-existing-user' is only other valid option.
     ));
 
     $cmb_user->add_field(array(
-        'name'     => esc_html__('Extra Info', 'cmb2'),
-        'desc'     => esc_html__('field description (optional)', 'cmb2'),
+        'name'     => esc_html__('Informação Extra', 'ipf'),
         'id'       => 'ipf_user_extra_info',
         'type'     => 'title',
         'on_front' => false,
@@ -66,9 +64,15 @@ function ipf_register_user_profile_metabox()
 
     $cmb_user->add_field(array(
         'name'    => esc_html__('Playfab ID', 'ipf'),
-        'desc'    => esc_html__('field description (optional)', 'cmb2'),
         'id'      => 'ipf_playfabid',
         'type'    => 'text',
+    ));
+
+    $cmb_user->add_field(array(
+        'name'    => esc_html__('SessionTicket', 'ipf'),
+        'desc'    => esc_html__('Existe apenas se o usuário estiver logado', 'ipf'),
+        'id'      => 'ipf_sessionticket',
+        'type'    => 'textarea_small',
     ));
 }
 
@@ -139,7 +143,7 @@ function ipf_register_options_metabox()
     $cmb_options->add_field(
         array(
             'name'          => __('Moedas Virtuais', 'ipf'),
-            'desc'          => esc_html__('Nome da moeda virtual exatamente como está escrita no Playfab', 'cmb2'),
+            'desc'          => esc_html__('Nome da moeda virtual exatamente como está escrita no Playfab', 'ipf'),
             'id'            => 'ipf_virtual_currencies',
             'type'          => 'text',
             'repeatable'    => true

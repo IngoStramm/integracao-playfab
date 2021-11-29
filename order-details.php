@@ -20,6 +20,8 @@ function ipf_bind_playfab_account()
         if (!$ipf_email)
             return;
 
+        // Usa a Classe a partir daqui
+
         $ipf_title_id = ipf_get_option('ipf_title_id');
         $ipf_secret_key = ipf_get_option('ipf_secret_key');
         if (!$ipf_title_id || !$ipf_secret_key)
@@ -63,7 +65,7 @@ function ipf_bind_playfab_account()
     exit;
 }
 
-// formulário para vincular a uma conta playfab
+//  exibe o formulário para vincular a uma conta playfab
 add_action('woocommerce_order_details_after_order_table', 'ipf_no_playfab_account_bounded', 10);
 
 function ipf_no_playfab_account_bounded($order)
@@ -146,7 +148,7 @@ function ipf_no_playfab_account_bounded($order)
 <?php
 }
 
-// exibe form para vincular a uma conta playfab
+// Html do form para vincular a uma conta playfab
 function ipf_form_playfab_account_bind()
 {
     $user_id = get_current_user_id();
@@ -171,6 +173,7 @@ function ipf_form_playfab_account_bind()
     </form>
     <?php
 }
+
 // adiciona a moeda virtual no playfab
 add_action('admin_post_playfab_add_currency', 'playfab_add_currency');
 
@@ -185,6 +188,9 @@ function playfab_add_currency()
     // echo $ipf_playfab_add_currency_nonce;
     // return;
 
+    $arr_errors = null;
+
+    // se validar o nonce
     if ($ipf_playfab_add_currency_nonce) {
 
         $order_id = isset($_POST['order_id']) ? $_POST['order_id'] : null;
@@ -201,8 +207,8 @@ function playfab_add_currency()
         if (!$ipf_title_id || !$ipf_secret_key || !$ipf_playfabid)
             return;
 
-        // https://85776.playfabapi.com/Server/AddUserVirtualCurrency?Amount=6&PlayFabId=528A43129799B8BE&VirtualCurrency=GC&OrderId=1
-        $get_user_info_url = 'https://' . $ipf_title_id . '.playfabapi.com/Server/AddUserVirtualCurrency?Amount=' . $amount . '&PlayFabId=' . $ipf_playfabid . '&VirtualCurrency=' . $virtual_currency . '&OrderId=' . $order_id;
+        // adiciona a moeda virtusl na conta do Playfab
+        $add_virtual_currency_to_user_url = 'https://' . $ipf_title_id . '.playfabapi.com/Server/AddUserVirtualCurrency?Amount=' . $amount . '&PlayFabId=' . $ipf_playfabid . '&VirtualCurrency=' . $virtual_currency . '&OrderId=' . $order_id;
         $args = array(
             'method' => 'POST',
             'headers' => array(
@@ -211,20 +217,90 @@ function playfab_add_currency()
             )
         );
 
-        $response = wp_remote_get($get_user_info_url, $args);
-        $playfab_user_info = json_decode($response['body'], true);
+        $response = wp_remote_get($add_virtual_currency_to_user_url, $args);
+        $add_virtual_currency_to_user_url_response = json_decode($response['body'], true);
 
-        if ($playfab_user_info['status']  === 'OK') {
+        if ($add_virtual_currency_to_user_url_response['status']  !== 'OK') {
+            $arr_errors = array();
+            if (isset($add_virtual_currency_to_user_url_response['errorMessage']))
+                $arr_errors['errorMessage'] = $add_virtual_currency_to_user_url_response['errorMessage'];
+            if (isset($add_virtual_currency_to_user_url_response['errorDetails']))
+                $arr_errors['errorDetails'] = $add_virtual_currency_to_user_url_response['errorDetails'];
+        } else {
+            // Atualiza o metafield e status do pedido
             $ipf_redeemed_order_value = sprintf(__('O pedido já foi resgatado em %s', 'ipf'), current_time('d-m-Y H:i:s'));
             $ipf_redeemed_order = update_post_meta($order_id, 'ipf_redeemed_order', $ipf_redeemed_order_value);
 
             $order = wc_get_order($order_id);
             $order->set_status('completed');
             $order->save();
+
+            $ipf_sessionticket = get_user_meta($user_id, 'ipf_sessionticket', true);
+            // ipf_debug($ipf_sessionticket);
+
+
+            if ($ipf_sessionticket) {
+
+                // https://85776.playfabapi.com/Client/GetUserData?PlayFabId=528A43129799B8BE
+                $get_user_data_url = 'https://' . $ipf_title_id . '.playfabapi.com/Client/GetUserData?PlayFabId=' . $ipf_playfabid;
+                $args = array(
+                    'method' => 'POST',
+                    'headers' => array(
+                        'Content-Type'  => 'application/json',
+                        'X-Authorization'   => $ipf_sessionticket
+                    )
+                );
+
+                $response = wp_remote_get($get_user_data_url, $args);
+                $playfab_user_data = json_decode($response['body'], true);
+                // ipf_debug($playfab_user_data);
+
+
+                if ($playfab_user_data['status']  !== 'OK') {
+                    $arr_errors = array();
+                    if (isset($playfab_user_data['errorMessage']))
+                        $arr_errors['errorMessage'] = $playfab_user_data['errorMessage'];
+                    if (isset($playfab_user_data['errorDetails']))
+                        $arr_errors['errorDetails'] = $playfab_user_data['errorDetails'];
+                } else {
+                    $ipf_current_puchase_value = $playfab_user_data['data']['Data']['Purchase']['Value'];
+                    $ipf_new_purchase_value = (int)$ipf_current_puchase_value + 1;
+
+                    // https://85776.playfabapi.com/Client/UpdateUserData
+                    $update_user_data_url = 'https://' . $ipf_title_id . '.playfabapi.com/Client/UpdateUserData';
+                    $args = array(
+                        'method' => 'POST',
+                        'headers' => array(
+                            'Content-Type'  => 'application/json',
+                            'X-Authorization'   => $ipf_sessionticket
+                        ),
+                        'body' => '{"Data": {"Purchase": ' . $ipf_new_purchase_value . '}}'
+                    );
+
+                    $response = wp_remote_get($update_user_data_url, $args);
+                    $playfab_user_data_updated_response = json_decode($response['body'], true);
+                    if ($playfab_user_data_updated_response['status']  !== 'OK') {
+                        $arr_errors = array();
+                        if (isset($playfab_user_data['errorMessage']))
+                            $arr_errors['errorMessage'] = $playfab_user_data['errorMessage'];
+                        if (isset($playfab_user_data['errorDetails']))
+                            $arr_errors['errorDetails'] = $playfab_user_data['errorDetails'];
+
+                        // ipf_debug($playfab_user_data_updated_response['status']);
+                    }
+                }
+            }
         }
     }
 
     $redirect_to = isset($_POST['redirect_to']) ? $_POST['redirect_to'] : null;
+    if ($arr_errors)
+        $_SESSION['playfab_update_user_data_error_messages'] = $arr_errors;
+    else
+        unset($_SESSION['playfab_update_user_data_error_messages']);
+
+    ipf_debug($_SESSION['playfab_update_user_data_error_messages']);
+
 
     if (!$redirect_to)
         return;
