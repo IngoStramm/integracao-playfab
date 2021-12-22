@@ -12,9 +12,18 @@ class Ipf_Playfab_Api
         $this->error_msg = null;
     }
 
+    public function get_title_id() {
+        return $this->title_id;
+    }
+
     public function set_title_id($title_id)
     {
         $this->title_id = $title_id;
+    }
+
+    public function get_secret_key()
+    {
+        return $this->secret_key;
     }
 
     public function set_secret_key($secret_key)

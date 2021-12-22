@@ -42,7 +42,10 @@ function ipf_bind_playfab_account()
 
         if ($playfab_user_info['status']  === 'OK') {
             $ipf_new_playfab_id = $playfab_user_info['data']['UserInfo']['PlayFabId'];
+            $ipf_playfab_displayname = $playfab_user_info['data']['UserInfo']['TitleInfo']['DisplayName'];
             update_user_meta($user_id, 'ipf_playfabid', $ipf_new_playfab_id);
+            update_user_meta($user_id, 'ipf_playfab_displayname', $ipf_playfab_displayname);
+            update_user_meta($user_id, 'ipf_playfab_email', $ipf_email);
         } else {
             $arr_errors = array();
             if (isset($playfab_user_info['errorMessage']))
@@ -80,7 +83,13 @@ function ipf_no_playfab_account_bounded($order)
     $ipf_playfabid = get_user_meta($user_id, 'ipf_playfabid', true);
 
     $user_info = get_userdata($user_id);
-    $user_email = $user_info->user_email;
+    $ipf_playfab_email = get_user_meta($user_id, 'ipf_playfab_email', true);
+    if (!$ipf_playfab_email) {
+        $user_email = $user_info->user_email;
+    } else {
+        $user_email = $ipf_playfab_email != $user_info->user_email ? $ipf_playfab_email : $user_info->user_email;
+    }
+
 
     if (!$ipf_playfabid) {
         echo '<h3>' . __('Não encontramos nenhuma conta Playfab associada à conta da loja.', 'ipf') . '</h3>';
@@ -158,6 +167,13 @@ function ipf_form_playfab_account_bind()
 
     $user_info = get_userdata($user_id);
     $user_email = $user_info->user_email;
+    $ipf_playfab_email = get_user_meta($user_id, 'ipf_playfab_email', true);
+    if (!$ipf_playfab_email) {
+        $user_email = $user_info->user_email;
+    } else {
+        $user_email = $ipf_playfab_email != $user_info->user_email ? $ipf_playfab_email : $user_info->user_email;
+    }
+
     $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
     $curr_url = urlencode($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 
@@ -203,6 +219,7 @@ function playfab_add_currency()
         $ipf_title_id = ipf_get_option('ipf_title_id');
         $ipf_secret_key = ipf_get_option('ipf_secret_key');
         $ipf_playfabid = get_user_meta($user_id, 'ipf_playfabid', true);
+        $ipf_playfab_email = get_user_meta($user_id, 'ipf_playfab_email', true);
 
         if (!$ipf_title_id || !$ipf_secret_key || !$ipf_playfabid)
             return;
@@ -228,7 +245,7 @@ function playfab_add_currency()
                 $arr_errors['errorDetails'] = $add_virtual_currency_to_user_url_response['errorDetails'];
         } else {
             // Atualiza o metafield e status do pedido
-            $ipf_redeemed_order_value = sprintf(__('O pedido já foi resgatado em %s', 'ipf'), current_time('d-m-Y H:i:s'));
+            $ipf_redeemed_order_value = sprintf(__('O pedido já foi resgatado em %s, para a conta do e-mail "%s".', 'ipf'), current_time('d/m/Y à\s H:i'), $ipf_playfab_email);
             $ipf_redeemed_order = update_post_meta($order_id, 'ipf_redeemed_order', $ipf_redeemed_order_value);
 
             $order = wc_get_order($order_id);

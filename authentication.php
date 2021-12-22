@@ -89,7 +89,26 @@ function ipf_playfab_auth($user, $username, $password)
             $user = new WP_User($new_user_id);
         }
 
+        $get_user_info_url = 'https://' . $ipf_playfab_api->get_title_id() . '.playfabapi.com/Admin/GetUserAccountInfo?Email=' . $username;
+        $args = array(
+            'method' => 'POST',
+            'headers' => array(
+                'Content-Type'  => 'application/json',
+                'X-SecretKey'   => $ipf_playfab_api->get_secret_key()
+            )
+        );
+
+        $response = wp_remote_get($get_user_info_url, $args);
+        $playfab_user_info = json_decode($response['body'], true);
+
+        if ($playfab_user_info['status']  === 'OK') {
+            $ipf_playfab_displayname = $playfab_user_info['data']['UserInfo']['TitleInfo']['DisplayName'];
+            update_user_meta($user->ID, 'ipf_playfab_displayname', $ipf_playfab_displayname);
+            wp_update_user(array('ID' => $user->ID, 'display_name' => $ipf_playfab_displayname));
+        }
+
         update_user_meta($user->ID, 'ipf_playfabid', $ipf_authenticate_user->get_id());
+        update_user_meta($user->ID, 'ipf_playfab_email', $username);
         update_user_meta($user->ID, 'ipf_sessionticket', $ipf_authenticate_user->get_session_ticket());
     }
 

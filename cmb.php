@@ -69,6 +69,18 @@ function ipf_register_user_profile_metabox()
     ));
 
     $cmb_user->add_field(array(
+        'name'    => esc_html__('Playfab Display Name', 'ipf'),
+        'id'      => 'ipf_playfab_displayname',
+        'type'    => 'text',
+    ));
+
+    $cmb_user->add_field(array(
+        'name'    => esc_html__('Playfab E-mail', 'ipf'),
+        'id'      => 'ipf_playfab_email',
+        'type'    => 'text_email',
+    ));
+
+    $cmb_user->add_field(array(
         'name'    => esc_html__('SessionTicket', 'ipf'),
         'desc'    => esc_html__('Existe apenas se o usuário estiver logado', 'ipf'),
         'id'      => 'ipf_sessionticket',

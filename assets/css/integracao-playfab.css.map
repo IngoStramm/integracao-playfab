@@ -1,7 +1,9 @@
 {
-"version": 3,
-"mappings": "AAAA,4BAA6B,CACzB,OAAO,CAAE,IAAI",
-"sources": ["../sass/integracao-playfab.scss"],
-"names": [],
-"file": "integracao-playfab.css"
+	"version": 3,
+	"file": "integracao-playfab.css",
+	"sources": [
+		"../sass/integracao-playfab.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,4BAA4B,CAAC;EACzB,OAAO,EAAE,IAAI,GAChB"
 }
