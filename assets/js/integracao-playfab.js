@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         const ipf_products_grid_product = ipf_products_grid.querySelectorAll('li.product');
-        console.log(ipf_products_grid_product);
+        // console.log(ipf_products_grid_product);
         for (i = 0; i < ipf_products_grid_product.length; i++) {
             const add_to_cart_button = ipf_products_grid_product[i].querySelector('a.add_to_cart_button');
             const new_product_url = add_to_cart_button.href;
