@@ -23,5 +23,24 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    function rename_wc_login_form_label() {
+        const wc_login_form = document.querySelector('.woocommerce-form.woocommerce-form-login.login');
+        console.log(wc_login_form);
+        if (typeof (wc_login_form) === 'undefined' || wc_login_form === null) {
+            return;
+        }
+        const wc_login_form_labels = wc_login_form.querySelectorAll('label');
+        for (i = 0; i < wc_login_form_labels.length; i++) {
+            if (wc_login_form_labels[i].innerText === 'Nome de usuário ou e-mail *') {
+                wc_login_form_labels[i].innerText = 'E-mail usado no cadastro do jogo *';
+            }
+        }
+
+    }
+
     toggle_rebind_playfab_account_form();
+    rename_wc_login_form_label();
+
+
 });
