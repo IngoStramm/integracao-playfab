@@ -1,7 +1,7 @@
 {
     "name": "integracao-playfab",
     "description": "Descrição do Integração Playfab.",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "title": "Integração Playfab",
     "homepage": "https://agencialaf.com",
     "main": "Gruntfile.js",

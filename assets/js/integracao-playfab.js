@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function rename_wc_login_form_label() {
         const wc_login_form = document.querySelector('.woocommerce-form.woocommerce-form-login.login');
-        console.log(wc_login_form);
+        // console.log(wc_login_form);
         if (typeof (wc_login_form) === 'undefined' || wc_login_form === null) {
             return;
         }
@@ -45,13 +45,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         const ipf_products_grid_product = ipf_products_grid.querySelectorAll('li.product');
-        // console.log(ipf_products_grid_product);
         for (i = 0; i < ipf_products_grid_product.length; i++) {
+            console.log(ipf_products_grid_product[i]);
             const add_to_cart_button = ipf_products_grid_product[i].querySelector('a.add_to_cart_button');
             const new_product_url = add_to_cart_button.href;
             const product_links = ipf_products_grid_product[i].querySelectorAll('a');
-            // console.log(product_links);
             for (x = 0; x < product_links.length; x++) {
+                console.log(product_links[x]);
                 product_links[x].href = new_product_url;
             }
         }
