@@ -39,8 +39,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
+    function change_grid_products_url() {
+        const ipf_products_grid = document.getElementById('ipf-products-grid');
+        if (typeof (ipf_products_grid) === 'undefined' || ipf_products_grid === null) {
+            return;
+        }
+        const ipf_products_grid_product = ipf_products_grid.querySelectorAll('li.product');
+        console.log(ipf_products_grid_product);
+        for (i = 0; i < ipf_products_grid_product.length; i++) {
+            const add_to_cart_button = ipf_products_grid_product[i].querySelector('a.add_to_cart_button');
+            const new_product_url = add_to_cart_button.href;
+            const product_links = ipf_products_grid_product[i].querySelectorAll('a');
+            // console.log(product_links);
+            for (x = 0; x < product_links.length; x++) {
+                product_links[x].href = new_product_url;
+            }
+        }
+    }
+
+    change_grid_products_url();
     toggle_rebind_playfab_account_form();
     rename_wc_login_form_label();
-
 
 });
