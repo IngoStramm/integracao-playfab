@@ -4,7 +4,7 @@
  * Plugin Name: Integração Playfab
  * Plugin URI: https://agencialaf.com
  * Description: Descrição do Integração Playfab.
- * Version: 0.1.5
+ * Version: 0.1.6
  * Author: Ingo Stramm
  * Text Domain: integracao-playfab
  * License: GPLv2
@@ -42,7 +42,9 @@ function ipf_test()
     // global $ipf_playfab_api;
     // $ipf_playfab_user = new Ipf_Playfab_User($user_id, 'teste');
     $ipf_sessionticket = get_user_meta($user_id, 'ipf_sessionticket', true);
-    ipf_debug($ipf_sessionticket);
+
+    $shop_page_url = get_permalink(wc_get_page_id('shop'));
+    ipf_debug($shop_page_url);
 }
 
 require 'plugin-update-checker-4.10/plugin-update-checker.php';
