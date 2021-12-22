@@ -1,3 +1,9 @@
 #rebind-playfab-account-form {
     display: none;
 }
+
+.woocommerce-form-row.woocommerce-form-row--wide.form-row.form-row-wide label[for="account_display_name"],
+.woocommerce-form-row.woocommerce-form-row--wide.form-row.form-row-wide #account_display_name,
+.woocommerce-form-row.woocommerce-form-row--wide.form-row.form-row-wide #account_display_name + span {
+    display: none;
+}
