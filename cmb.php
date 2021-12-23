@@ -151,7 +151,6 @@ function ipf_register_options_metabox()
         )
     );
 
-
     $cmb_options->add_field(
         array(
             'name'          => __('Moedas Virtuais', 'ipf'),
@@ -159,6 +158,30 @@ function ipf_register_options_metabox()
             'id'            => 'ipf_virtual_currencies',
             'type'          => 'text',
             'repeatable'    => true
+        )
+    );
+
+    $cmb_options_submenu = new_cmb2_box(array(
+        'id'           => 'ipf_option_submenu__metabox',
+        'title'        => esc_html__('Aparência', 'ipf'),
+        'object_types' => array('options-page'),
+        'option_key'      => 'ipf_options_submenu', // The option key and admin menu page slug.
+        // 'icon_url'        => 'dashicons-palmtree', // Menu icon. Only applicable if 'parent_slug' is left empty.
+        // 'menu_title'      => esc_html__( 'Options', 'ipf' ), // Falls back to 'title' (above).
+        'parent_slug'     => 'ipf_options', // Make options page a submenu item of the themes menu.
+        // 'capability'      => 'manage_options', // Cap required to view options-page.
+        // 'position'        => 1, // Menu position. Only applicable if 'parent_slug' is left empty.
+        // 'admin_menu_hook' => 'network_admin_menu', // 'network_admin_menu' to add network-level options page.
+        // 'display_cb'      => false, // Override the options-page form output (CMB2_Hookup::options_page_output()).
+        // 'save_button'     => esc_html__( 'Save Theme Options', 'ipf' ), // The text for the options-page save button. Defaults to 'Save'.
+    ));
+
+    $cmb_options_submenu->add_field(
+        array(
+            'name'          => __('Shortocde da confirmação do pedido', 'ipf'),
+            'desc'          => esc_html__('Shortocde para substituir o conteúdo exibido na página de confirmação do pedido.', 'ipf'),
+            'id'            => 'ipf_confirmation_order_shortcode',
+            'type'          => 'text',
         )
     );
 }
@@ -173,6 +196,27 @@ function ipf_get_option($key = '', $default = false)
 
     // Fallback to get_option if CMB2 is not loaded yet.
     $opts = get_option('ipf_options', $default);
+
+    $val = $default;
+
+    if ('all' == $key) {
+        $val = $opts;
+    } elseif (is_array($opts) && array_key_exists($key, $opts) && false !== $opts[$key]) {
+        $val = $opts[$key];
+    }
+
+    return $val;
+}
+
+function ipf_get_option_submenu($key = '', $default = false)
+{
+    if (function_exists('cmb2_get_option')) {
+        // Use cmb2_get_option as it passes through some key filters.
+        return cmb2_get_option('ipf_options_submenu', $key, $default);
+    }
+
+    // Fallback to get_option if CMB2 is not loaded yet.
+    $opts = get_option('ipf_options_submenu', $default);
 
     $val = $default;
 

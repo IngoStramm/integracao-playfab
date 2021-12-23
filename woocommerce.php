@@ -142,3 +142,19 @@ function ipf_shop_order_modified_views($views)
 
     return $views;
 }
+
+add_filter('the_content', 'ipf_title_order_received', 10, 2);
+
+function ipf_title_order_received($content)
+{
+    $ipf_confirmation_order_shortcode = ipf_get_option_submenu('ipf_confirmation_order_shortcode');
+    // ipf_debug($ipf_confirmation_order_shortcode);
+    if (
+        function_exists('is_order_received_page') && is_order_received_page()
+        && in_the_loop() && is_main_query()
+    ) {
+        if ($ipf_confirmation_order_shortcode)
+            $content = do_shortcode($ipf_confirmation_order_shortcode) . $content;
+    }
+    return $content;
+}
