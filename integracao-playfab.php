@@ -4,7 +4,7 @@
  * Plugin Name: Integração Playfab
  * Plugin URI: https://agencialaf.com
  * Description: Descrição do Integração Playfab.
- * Version: 0.2.3
+ * Version: 0.2.4
  * Author: Ingo Stramm
  * Text Domain: integracao-playfab
  * License: GPLv2

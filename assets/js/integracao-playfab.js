@@ -46,12 +46,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         const ipf_products_grid_product = ipf_products_grid.querySelectorAll('li.product');
         for (i = 0; i < ipf_products_grid_product.length; i++) {
-            console.log(ipf_products_grid_product[i]);
+            // console.log(ipf_products_grid_product[i]);
             const add_to_cart_button = ipf_products_grid_product[i].querySelector('a.add_to_cart_button');
             const new_product_url = add_to_cart_button.href;
             const product_links = ipf_products_grid_product[i].querySelectorAll('a');
             for (x = 0; x < product_links.length; x++) {
-                console.log(product_links[x]);
+                // console.log(product_links[x]);
                 product_links[x].href = new_product_url;
             }
         }
