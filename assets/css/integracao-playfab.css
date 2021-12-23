@@ -11,7 +11,9 @@
 .woocommerce
 section.woocommerce-order-details
 .woocommerce-table.woocommerce-table--order-details.shop_table.order_details,
-.woocommerce section.woocommerce-customer-details {
+.woocommerce section.woocommerce-customer-details,
+.woocommerce-order-received .woocommerce-order .woocommerce-notice.woocommerce-notice--success,
+.woocommerce-order-received .woocommerce-order .woocommerce-order-overview.woocommerce-thankyou-order-details.order_details {
   display: none; }
 
 /*# sourceMappingURL=integracao-playfab.css.map */
