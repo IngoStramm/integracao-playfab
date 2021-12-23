@@ -1,4 +1,4 @@
-$color-default: #000C21;
+$color-default: #000c21;
 $color-default-alt: #c36;
 $ff: "Poppins", Sans-serif;
 
@@ -18,23 +18,32 @@ $ff: "Poppins", Sans-serif;
     .woocommerce-table.woocommerce-table--order-details.shop_table.order_details,
 .woocommerce section.woocommerce-customer-details,
 .woocommerce-order-received .woocommerce-order .woocommerce-notice.woocommerce-notice--success,
-.woocommerce-order-received .woocommerce-order .woocommerce-order-overview.woocommerce-thankyou-order-details.order_details 
- {
+.woocommerce-order-received
+    .woocommerce-order
+    .woocommerce-order-overview.woocommerce-thankyou-order-details.order_details {
     display: none;
 }
 
-.ipf-btn {
+.ipf-btn,
+.woocommerce #respond input#submit,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button {
+    padding: 15px 60px;
     font-family: $ff;
-    font-size: 1.1em;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1em;
     text-transform: uppercase;
     border-radius: 3em;
-    transition: all .3s;
+    transition: all 0.3s;
     &.ipf-btn-default {
         background-color: $color-default;
         border-color: $color-default;
         color: #fff;
     }
-    &.ipf-btn-default-alt {
+    &.ipf-btn-default-alt,
+    &.alt {
         background-color: $color-default-alt;
         border-color: $color-default-alt;
         color: #fff;
@@ -43,13 +52,16 @@ $ff: "Poppins", Sans-serif;
     &:focus,
     &:hover,
     &:focus:hover {
-    &.ipf-btn-default {
-        background-color: #fff;
-        color: $color-default;
-    }
-    &.ipf-btn-default-alt {
-        background-color: #fff;
-        color: $color-default-alt;
-    }
+        &.ipf-btn-default {
+            background-color: #fff;
+            border-color: #fff;
+            color: $color-default;
+        }
+        &.ipf-btn-default-alt,
+        &.alt {
+            background-color: #fff;
+            border-color: #fff;
+            color: $color-default-alt;
+        }
     }
 }

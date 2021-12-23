@@ -13,28 +13,99 @@ section.woocommerce-order-details
 .woocommerce-table.woocommerce-table--order-details.shop_table.order_details,
 .woocommerce section.woocommerce-customer-details,
 .woocommerce-order-received .woocommerce-order .woocommerce-notice.woocommerce-notice--success,
-.woocommerce-order-received .woocommerce-order .woocommerce-order-overview.woocommerce-thankyou-order-details.order_details {
+.woocommerce-order-received
+.woocommerce-order
+.woocommerce-order-overview.woocommerce-thankyou-order-details.order_details {
   display: none; }
 
-.ipf-btn {
+.ipf-btn,
+.woocommerce #respond input#submit,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button {
+  padding: 15px 60px;
   font-family: "Poppins", Sans-serif;
-  font-size: 1.1em;
+  font-weight: 600;
+  font-size: 1em;
+  line-height: 1em;
   text-transform: uppercase;
   border-radius: 3em;
-  transition: all .3s; }
-  .ipf-btn.ipf-btn-default {
-    background-color: #000C21;
-    border-color: #000C21;
+  transition: all 0.3s; }
+  .ipf-btn.ipf-btn-default,
+  .woocommerce #respond input#submit.ipf-btn-default,
+  .woocommerce a.button.ipf-btn-default,
+  .woocommerce button.button.ipf-btn-default,
+  .woocommerce input.button.ipf-btn-default {
+    background-color: #000c21;
+    border-color: #000c21;
     color: #fff; }
-  .ipf-btn.ipf-btn-default-alt {
+  .ipf-btn.ipf-btn-default-alt, .ipf-btn.alt,
+  .woocommerce #respond input#submit.ipf-btn-default-alt,
+  .woocommerce #respond input#submit.alt,
+  .woocommerce a.button.ipf-btn-default-alt,
+  .woocommerce a.button.alt,
+  .woocommerce button.button.ipf-btn-default-alt,
+  .woocommerce button.button.alt,
+  .woocommerce input.button.ipf-btn-default-alt,
+  .woocommerce input.button.alt {
     background-color: #c36;
     border-color: #c36;
     color: #fff; }
-  .ipf-btn:active.ipf-btn-default, .ipf-btn:focus.ipf-btn-default, .ipf-btn:hover.ipf-btn-default, .ipf-btn:focus:hover.ipf-btn-default {
+  .ipf-btn:active.ipf-btn-default, .ipf-btn:focus.ipf-btn-default, .ipf-btn:hover.ipf-btn-default, .ipf-btn:focus:hover.ipf-btn-default,
+  .woocommerce #respond input#submit:active.ipf-btn-default,
+  .woocommerce #respond input#submit:focus.ipf-btn-default,
+  .woocommerce #respond input#submit:hover.ipf-btn-default,
+  .woocommerce #respond input#submit:focus:hover.ipf-btn-default,
+  .woocommerce a.button:active.ipf-btn-default,
+  .woocommerce a.button:focus.ipf-btn-default,
+  .woocommerce a.button:hover.ipf-btn-default,
+  .woocommerce a.button:focus:hover.ipf-btn-default,
+  .woocommerce button.button:active.ipf-btn-default,
+  .woocommerce button.button:focus.ipf-btn-default,
+  .woocommerce button.button:hover.ipf-btn-default,
+  .woocommerce button.button:focus:hover.ipf-btn-default,
+  .woocommerce input.button:active.ipf-btn-default,
+  .woocommerce input.button:focus.ipf-btn-default,
+  .woocommerce input.button:hover.ipf-btn-default,
+  .woocommerce input.button:focus:hover.ipf-btn-default {
     background-color: #fff;
-    color: #000C21; }
-  .ipf-btn:active.ipf-btn-default-alt, .ipf-btn:focus.ipf-btn-default-alt, .ipf-btn:hover.ipf-btn-default-alt, .ipf-btn:focus:hover.ipf-btn-default-alt {
+    border-color: #fff;
+    color: #000c21; }
+  .ipf-btn:active.ipf-btn-default-alt, .ipf-btn:active.alt, .ipf-btn:focus.ipf-btn-default-alt, .ipf-btn:focus.alt, .ipf-btn:hover.ipf-btn-default-alt, .ipf-btn:hover.alt, .ipf-btn:focus:hover.ipf-btn-default-alt, .ipf-btn:focus:hover.alt,
+  .woocommerce #respond input#submit:active.ipf-btn-default-alt,
+  .woocommerce #respond input#submit:active.alt,
+  .woocommerce #respond input#submit:focus.ipf-btn-default-alt,
+  .woocommerce #respond input#submit:focus.alt,
+  .woocommerce #respond input#submit:hover.ipf-btn-default-alt,
+  .woocommerce #respond input#submit:hover.alt,
+  .woocommerce #respond input#submit:focus:hover.ipf-btn-default-alt,
+  .woocommerce #respond input#submit:focus:hover.alt,
+  .woocommerce a.button:active.ipf-btn-default-alt,
+  .woocommerce a.button:active.alt,
+  .woocommerce a.button:focus.ipf-btn-default-alt,
+  .woocommerce a.button:focus.alt,
+  .woocommerce a.button:hover.ipf-btn-default-alt,
+  .woocommerce a.button:hover.alt,
+  .woocommerce a.button:focus:hover.ipf-btn-default-alt,
+  .woocommerce a.button:focus:hover.alt,
+  .woocommerce button.button:active.ipf-btn-default-alt,
+  .woocommerce button.button:active.alt,
+  .woocommerce button.button:focus.ipf-btn-default-alt,
+  .woocommerce button.button:focus.alt,
+  .woocommerce button.button:hover.ipf-btn-default-alt,
+  .woocommerce button.button:hover.alt,
+  .woocommerce button.button:focus:hover.ipf-btn-default-alt,
+  .woocommerce button.button:focus:hover.alt,
+  .woocommerce input.button:active.ipf-btn-default-alt,
+  .woocommerce input.button:active.alt,
+  .woocommerce input.button:focus.ipf-btn-default-alt,
+  .woocommerce input.button:focus.alt,
+  .woocommerce input.button:hover.ipf-btn-default-alt,
+  .woocommerce input.button:hover.alt,
+  .woocommerce input.button:focus:hover.ipf-btn-default-alt,
+  .woocommerce input.button:focus:hover.alt {
     background-color: #fff;
+    border-color: #fff;
     color: #c36; }
 
 /*# sourceMappingURL=integracao-playfab.css.map */
