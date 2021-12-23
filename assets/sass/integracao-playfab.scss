@@ -4,6 +4,14 @@
 
 .woocommerce-form-row.woocommerce-form-row--wide.form-row.form-row-wide label[for="account_display_name"],
 .woocommerce-form-row.woocommerce-form-row--wide.form-row.form-row-wide #account_display_name,
-.woocommerce-form-row.woocommerce-form-row--wide.form-row.form-row-wide #account_display_name + span {
+.woocommerce-form-row.woocommerce-form-row--wide.form-row.form-row-wide #account_display_name + span,
+.woocommerce-view-order .woocommerce-MyAccount-content table,
+.woocommerce-view-order .woocommerce-MyAccount-content address,
+.woocommerce-account .woocommerce-MyAccount-content h2,
+.woocommerce section.woocommerce-order-details .woocommerce-order-details__title,
+.woocommerce
+    section.woocommerce-order-details
+    .woocommerce-table.woocommerce-table--order-details.shop_table.order_details,
+.woocommerce section.woocommerce-customer-details {
     display: none;
 }
