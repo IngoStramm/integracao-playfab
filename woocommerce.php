@@ -95,12 +95,50 @@ function ipf_remove_add_to_cart_message($message)
 
 // Esvazia o carrinho toda vez que um novo produto é adicionado
 
-add_filter('woocommerce_add_cart_item_data', '_empty_cart');
+add_filter('woocommerce_add_cart_item_data', 'ipf_empty_cart');
 
-function _empty_cart($cart_item_data)
+function ipf_empty_cart($cart_item_data)
 {
 
     WC()->cart->empty_cart();
 
     return $cart_item_data;
+}
+
+// Alterar o texto do status "processando" dos pedidos
+// São 3 funções
+
+// No próprio pedido
+add_filter('wc_order_statuses', 'ipf_renaming_order_status');
+
+function ipf_renaming_order_status($order_statuses)
+{
+    foreach ($order_statuses as $key => $status) {
+        if ('wc-processing' === $key)
+            $order_statuses['wc-processing'] = _x('Pronto para resgate', 'Status', 'ipf');
+    }
+    return $order_statuses;
+}
+
+// No "bulk actions"
+add_filter('bulk_actions-edit-shop_order', 'ipf_dropdown_bulk_actions_shop_order', 20, 1);
+
+function ipf_dropdown_bulk_actions_shop_order($actions)
+{
+    $actions['mark_processing'] = __('Mudar status para pronto para resgate', 'ipf');
+
+    return $actions;
+}
+
+// No menu no topo da lista de pedidos
+foreach (array('post', 'shop_order') as $hook)
+    add_filter("views_edit-$hook", 'ipf_shop_order_modified_views');
+
+function ipf_shop_order_modified_views($views)
+{
+
+    if (isset($views['wc-processing']))
+        $views['wc-processing'] = str_replace('Processando', __('Pronto para resgate', 'ipf'), $views['wc-processing']);
+
+    return $views;
 }
