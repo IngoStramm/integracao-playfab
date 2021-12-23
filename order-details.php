@@ -146,7 +146,7 @@ function ipf_no_playfab_account_bounded($order)
                 echo '<h4 class="warning">' . __($playfab_user_info['errorMessage']) . '</h4>';
             } else {
                 echo '<h3>' . sprintf(__('Sua conta da loja está vinculada à conta "%s" da Playfab.', 'ipf'), $playfab_user_info['data']['UserInfo']['TitleInfo']['DisplayName']) . '</h3>';
-                echo '<p><a href="#" id="toggle-rebind-playfab-account-form">' . __('Vincular a outra conta.', 'ipf') . '</a></p>';
+                echo '<p><a href="#" class="ipf-btn ipf-btn-default" id="toggle-rebind-playfab-account-form">' . __('Vincular a outra conta.', 'ipf') . '</a></p>';
                 echo '<div id="rebind-playfab-account-form" style="display: none;">';
                 ipf_form_playfab_account_bind();
                 echo '</div>';
@@ -185,7 +185,7 @@ function ipf_form_playfab_account_bind()
         <label for="Email">
             <input type="email" name="Email" placeholder="<?php _e('Seu e-mail', 'ipf'); ?>" value="<?php echo $user_email; ?>" required>
         </label>
-        <button><?php _e('Enviar', 'ipf'); ?></button>
+        <button class="ipf-btn ipf-btn-default"><?php _e('Enviar', 'ipf'); ?></button>
     </form>
     <?php
 }
@@ -365,7 +365,7 @@ function ipf_form_add_currency($order)
             <input type="hidden" name="order_id" value="<?php echo $order->id; ?>" />
             <input type="hidden" name="amount" value="<?php echo $amount; ?>" />
             <input type="hidden" name="virtual_currency" value="<?php echo $ipf_product_virtual_currency_name; ?>" />
-            <button><?php _e('Resgatar', 'ipf'); ?></button>
+            <button class="ipf-btn ipf-btn-default-alt"><?php _e('Resgatar', 'ipf'); ?></button>
         </form>
 <?php
     }

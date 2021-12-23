@@ -16,4 +16,25 @@ section.woocommerce-order-details
 .woocommerce-order-received .woocommerce-order .woocommerce-order-overview.woocommerce-thankyou-order-details.order_details {
   display: none; }
 
+.ipf-btn {
+  font-family: "Poppins", Sans-serif;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  border-radius: 3em;
+  transition: all .3s; }
+  .ipf-btn.ipf-btn-default {
+    background-color: #000C21;
+    border-color: #000C21;
+    color: #fff; }
+  .ipf-btn.ipf-btn-default-alt {
+    background-color: #c36;
+    border-color: #c36;
+    color: #fff; }
+  .ipf-btn:active.ipf-btn-default, .ipf-btn:focus.ipf-btn-default, .ipf-btn:hover.ipf-btn-default, .ipf-btn:focus:hover.ipf-btn-default {
+    background-color: #fff;
+    color: #000C21; }
+  .ipf-btn:active.ipf-btn-default-alt, .ipf-btn:focus.ipf-btn-default-alt, .ipf-btn:hover.ipf-btn-default-alt, .ipf-btn:focus:hover.ipf-btn-default-alt {
+    background-color: #fff;
+    color: #c36; }
+
 /*# sourceMappingURL=integracao-playfab.css.map */
