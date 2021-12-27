@@ -4,6 +4,7 @@ $ff: "Poppins", Sans-serif;
 
 #rebind-playfab-account-form {
     display: none;
+    margin-bottom: 20px;
 }
 
 .woocommerce-form-row.woocommerce-form-row--wide.form-row.form-row-wide label[for="account_display_name"],
@@ -44,6 +45,8 @@ $ff: "Poppins", Sans-serif;
     }
     &.ipf-btn-default-alt,
     &.alt {
+        display: inline-block;
+        vertical-align: middle;
         background-color: $color-default-alt;
         border-color: $color-default-alt;
         color: #fff;

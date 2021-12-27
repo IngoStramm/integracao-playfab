@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         const show_text = toggle_ipf_form.innerText;
-        const hide_text = 'Cancelar.';
+        const hide_text = 'Cancelar';
         toggle_ipf_form.addEventListener('click', function (e) {
             e.preventDefault();
             if (ipf_form.style.display === 'none') {

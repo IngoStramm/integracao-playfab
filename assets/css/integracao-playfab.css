@@ -1,5 +1,6 @@
 #rebind-playfab-account-form {
-  display: none; }
+  display: none;
+  margin-bottom: 20px; }
 
 .woocommerce-form-row.woocommerce-form-row--wide.form-row.form-row-wide label[for="account_display_name"],
 .woocommerce-form-row.woocommerce-form-row--wide.form-row.form-row-wide #account_display_name,
@@ -48,6 +49,8 @@ section.woocommerce-order-details
   .woocommerce button.button.alt,
   .woocommerce input.button.ipf-btn-default-alt,
   .woocommerce input.button.alt {
+    display: inline-block;
+    vertical-align: middle;
     background-color: #c36;
     border-color: #c36;
     color: #fff; }
