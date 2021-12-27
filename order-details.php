@@ -146,7 +146,7 @@ function ipf_no_playfab_account_bounded($order)
                 echo '<h4 class="warning">' . __($playfab_user_info['errorMessage']) . '</h4>';
             } else {
                 echo '<h3>' . sprintf(__('Sua conta da loja está vinculada à conta "%s" da Playfab.', 'ipf'), $playfab_user_info['data']['UserInfo']['TitleInfo']['DisplayName']) . '</h3>';
-                echo '<p><a href="#" class="ipf-btn ipf-btn-default" id="toggle-rebind-playfab-account-form">' . __('Vincular a outra conta.', 'ipf') . '</a></p>';
+                echo '<p><a href="#" class="ipf-btn ipf-btn-default" id="toggle-rebind-playfab-account-form">' . __('Vincular a outra conta', 'ipf') . '</a></p>';
                 echo '<div id="rebind-playfab-account-form" style="display: none;">';
                 ipf_form_playfab_account_bind();
                 echo '</div>';
