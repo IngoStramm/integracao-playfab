@@ -1,6 +1,6 @@
 {
     "name": "Integração Playfab",
-    "version": "0.2.12",
+    "version": "0.2.13",
     "download_url": "https://github.com/IngoStramm/integracao-playfab/raw/master/dist/integracao-playfab.zip",
     "homepage": "https://agencialaf.com",
     "requires": "4.7",
