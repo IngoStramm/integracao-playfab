@@ -14,7 +14,9 @@ function ipf_remove_checkout_fields($fields)
     unset($fields['billing']['billing_country']);
     unset($fields['billing']['billing_address_1']);
     unset($fields['billing']['billing_address_2']);
+    unset($fields['billing']['billing_number']);
     unset($fields['billing']['billing_city']);
+    unset($fields['billing']['billing_neighborhood']);
     unset($fields['billing']['billing_state']);
     unset($fields['billing']['billing_postcode']);
     unset($fields['billing']['billing_phone']);
@@ -24,6 +26,8 @@ function ipf_remove_checkout_fields($fields)
     unset($fields['shipping']['shipping_country']);
     unset($fields['shipping']['shipping_address_1']);
     unset($fields['shipping']['shipping_address_2']);
+    unset($fields['shipping']['shipping_city']);
+    unset($fields['shipping']['shipping_neighborhood']);
     unset($fields['shipping']['shipping_city']);
     unset($fields['shipping']['shipping_state']);
     unset($fields['shipping']['shipping_postcode']);
