@@ -69,15 +69,10 @@ $ff: "Poppins", Sans-serif;
     }
 }
 
-.ipf-product-thumb-with-title {
-    // display: flex;
-    // flex-direction: column;
-    // align-items: start;
-    // gap: 1rem;
-    display: inline-block;
-    vertical-align: middle;
-    & > figcaption {
-        display: inline-block;
-        margin-left: 1rem;
-    }
+.woocommerce table.shop_table.woocommerce-checkout-review-order-table td.product-name,
+.woocommerce table.shop_table.woocommerce-checkout-review-order-table th.product-name {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: start;
 }

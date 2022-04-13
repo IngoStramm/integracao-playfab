@@ -111,11 +111,11 @@ section.woocommerce-order-details
     border-color: #fff;
     color: #c36; }
 
-.ipf-product-thumb-with-title {
-  display: inline-block;
-  vertical-align: middle; }
-  .ipf-product-thumb-with-title > figcaption {
-    display: inline-block;
-    margin-left: 1rem; }
+.woocommerce table.shop_table.woocommerce-checkout-review-order-table td.product-name,
+.woocommerce table.shop_table.woocommerce-checkout-review-order-table th.product-name {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: start; }
 
 /*# sourceMappingURL=integracao-playfab.css.map */
