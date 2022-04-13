@@ -187,6 +187,7 @@ function ipf_form_playfab_account_bind()
         </label>
         <button class="ipf-btn ipf-btn-default"><?php _e('Enviar', 'ipf'); ?></button>
     </form>
+    <p>&nbsp;</p>
     <?php
 }
 

@@ -169,7 +169,25 @@ function ipf_show_prod_images_checkout_order_review($product_name, $cart_item, $
 {
     $prod_id = $cart_item['product_id'];
     $prod_thumb = get_the_post_thumbnail($prod_id, ['50px', ''], array('style' => 'width: 50px;', 'alt' => $product_name));
-    // return '<figure class="ipf-product-thumb-with-title">' . $prod_thumb . '<figcaption>' . $product_name . '</figcaption></figure>';
     return $prod_thumb . '&nbsp;' . $product_name;
-    // return $product_name;
+}
+
+// Atualiza o Display Name com o billing_first_name e billing_last_name no pedido feito
+add_action('woocommerce_new_order', 'ipf_sync_billing_name_display_name');
+
+function ipf_sync_billing_name_display_name()
+{
+    global $current_user;
+
+    if (!$current_user)
+        return;
+
+    $billing_first_name = get_user_meta($current_user->ID, 'billing_first_name', true);
+    $billing_last_name = get_user_meta($current_user->ID, 'billing_last_name', true);
+
+    if (!$billing_first_name || !$billing_last_name)
+        return;
+        
+    $new_display_name = $billing_first_name . ' ' . $billing_last_name;
+    wp_update_user(['ID' => $current_user->ID, 'display_name' => $new_display_name]);
 }
