@@ -150,6 +150,7 @@ function ipf_no_playfab_account_bounded($order)
                 echo '<div id="rebind-playfab-account-form" style="display: none;">';
                 ipf_form_playfab_account_bind();
                 echo '</div>';
+                echo '<p>&nbsp;</p>';
             }
         }
     } ?>
