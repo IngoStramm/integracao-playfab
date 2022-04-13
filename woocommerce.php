@@ -169,6 +169,7 @@ function ipf_show_prod_images_checkout_order_review($product_name, $cart_item, $
 {
     $prod_id = $cart_item['product_id'];
     $prod_thumb = get_the_post_thumbnail($prod_id, ['50px', ''], array('style' => 'width: 50px;', 'alt' => $product_name));
-    return '<figure class="ipf-product-thumb-with-title">' . $prod_thumb . '<figcaption>' . $product_name . '</figcaption></figure>';
+    // return '<figure class="ipf-product-thumb-with-title">' . $prod_thumb . '<figcaption>' . $product_name . '</figcaption></figure>';
+    return $prod_thumb . '&nbsp;' . $product_name;
     // return $product_name;
 }
