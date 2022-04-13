@@ -45,7 +45,6 @@ $ff: "Poppins", Sans-serif;
     }
     &.ipf-btn-default-alt,
     &.alt {
-        
         display: inline-block;
         vertical-align: middle;
         background-color: $color-default-alt;
@@ -67,5 +66,18 @@ $ff: "Poppins", Sans-serif;
             border-color: #fff;
             color: $color-default-alt;
         }
+    }
+}
+
+.ipf-product-thumb-with-title {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: start;
+    // gap: 1rem;
+    display: inline-block;
+    vertical-align: middle;
+    & > figcaption {
+        display: inline-block;
+        margin-left: 1rem;
     }
 }

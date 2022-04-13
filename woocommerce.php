@@ -147,6 +147,7 @@ function ipf_shop_order_modified_views($views)
     return $views;
 }
 
+// Shortcode antes do conteúdo da tela de confirmação de pedido
 add_filter('the_content', 'ipf_title_order_received', 10, 2);
 
 function ipf_title_order_received($content)
@@ -161,4 +162,13 @@ function ipf_title_order_received($content)
             $content = do_shortcode($ipf_confirmation_order_shortcode) . $content;
     }
     return $content;
+}
+
+add_filter('woocommerce_cart_item_name', 'ipf_show_prod_images_checkout_order_review', 10, 3);
+function ipf_show_prod_images_checkout_order_review($product_name, $cart_item, $cart_item_key)
+{
+    $prod_id = $cart_item['product_id'];
+    $prod_thumb = get_the_post_thumbnail($prod_id, ['50px', ''], array('style' => 'width: 50px;', 'alt' => $product_name));
+    return '<figure class="ipf-product-thumb-with-title">' . $prod_thumb . '<figcaption>' . $product_name . '</figcaption></figure>';
+    // return $product_name;
 }

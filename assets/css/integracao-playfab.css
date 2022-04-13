@@ -111,4 +111,11 @@ section.woocommerce-order-details
     border-color: #fff;
     color: #c36; }
 
+.ipf-product-thumb-with-title {
+  display: inline-block;
+  vertical-align: middle; }
+  .ipf-product-thumb-with-title > figcaption {
+    display: inline-block;
+    margin-left: 1rem; }
+
 /*# sourceMappingURL=integracao-playfab.css.map */
